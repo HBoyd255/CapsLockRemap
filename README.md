@@ -32,7 +32,6 @@ This script gives the following keybindings to the caps lock key:
 
 ### Buttons
 
-- Capslock => Right Click
 - Shift + Capslock => Capslock
 - Caps + I => Insert
 

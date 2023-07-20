@@ -9,8 +9,6 @@ shortcut_folder_path := A_ScriptDir . "\Shortcuts"
 scripts_folder_path := A_ScriptDir . "\Scripts"
 
 ; Buttons
-; Capslock => Right Click
-F13::Send +{F10}
 
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
