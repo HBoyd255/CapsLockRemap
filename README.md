@@ -13,6 +13,9 @@ new shortcuts to the caps lock key.
 - AutoHotkey. You can download it from the [official AutoHotkey website](https://www.autohotkey.com/).
 - Python. You can download it from the [official Python website](https://www.python.org/downloads/).
 
+- Python module `pyperclip`. You can install it using pip: `pip install pyperclip`.
+
+
 ## Getting started
 
 1. Clone or download this repository.
