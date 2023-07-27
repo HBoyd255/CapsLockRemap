@@ -13,21 +13,21 @@ scripts_folder_path := A_ScriptDir . "\Scripts"
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
 
-; Caps + I => Insert
+; Caps + i => Insert
 F13 & i::Send {Insert}
 
 ; Macros
-; Caps + C => Copy line
+; Caps + c => Copy line
 F13 & c::Run "%scripts_folder_path%\Macros\copyLine.exe"
 
-; Caps + X => Cut line
+; Caps + x => Cut line
 F13 & x::Run "%scripts_folder_path%\Macros\cutLine.exe"
 
 ; Applications
-; Caps + V => Volume mixer
+; Caps + v => Volume mixer
 F13 & v::Run "Sndvol.exe"
 
-; Caps + F => Open the current tab in firefox
+; Caps + f => Open the current tab in firefox
 ; By default open the tab in a new window
 ; If Alt is pressed open it as a new tab
 ; If Ctrl is pressed open it in chrome
@@ -50,6 +50,12 @@ F13 & up::send {PgUp}
 F13 & down::send {PgDn}
 F13 & left::send {Home}
 F13 & right::send {End}
+
+; Caps + j => Left arrow
+F13 & j::Send {Left}
+
+; Caps + l => Right arrow
+F13 & l::Send {Right}
 
 ; Media
 ; Caps + wasd => Media controll
@@ -130,17 +136,17 @@ F13 & 0::OpenFolderFromIndex(shortcut_folder_path, 0)
 ; Caps + k => Open Bluetooth Settings
 F13 & k::Run "%scripts_folder_path%\Settings\OpenBluetoothSettings.vbs"
 
-; Caps + P => Open Display settings
+; Caps + p => Open Display settings
 F13 & p::Run "%scripts_folder_path%\Settings\OpenDisplaySettings.vbs"
 
-; Caps + T => Open Touchpad settings
+; Caps + w => Open Touchpad settings
 F13 & t::Run "%scripts_folder_path%\Settings\OpenTouchpadSettings.vbs"
 
 ; Prints
-; Caps + G => print "@gmail.com"
+; Caps + g => print "@gmail.com"
 F13 & g:: Send, @gmail.com
 
-; Caps + H => prints the current date, DMY
+; Caps + h => prints the current date, DMY
 ; If Ctrl is pressed send YMD
 ; If alt is pressed swap / for _
 F13 & h::

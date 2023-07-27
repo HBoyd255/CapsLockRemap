@@ -15,7 +15,6 @@ new shortcuts to the caps lock key.
 
 - Python module `pyperclip`. You can install it using pip: `pip install pyperclip`.
 
-
 ## Getting started
 
 1. Clone or download this repository.
@@ -52,6 +51,9 @@ This script gives the following keybindings to the caps lock key:
 
 - Caps + Arrow Key => Document Navigation
 
+- Caps + j => left arrow
+- Caps + l => Right arrow
+
 ### Media
 
 - Caps + WASD => Media Control
@@ -69,7 +71,7 @@ This script gives the following keybindings to the caps lock key:
 ### Prints
 
 - Caps + G => Print "@gmail.com"
-- Caps + H => Prints the current date in DMY format. If Ctrl is pressed, send YMD. If Alt is pressed, swap "/" for "_".
+- Caps + H => Prints the current date in DMY format. If Ctrl is pressed, send YMD. If Alt is pressed, swap "/" for "\_".
 - Caps + H => Prints the current date
   - By default, prints dd/MM/yyyy
   - If Ctrl is pressed, prints dd/MM/yyyy
@@ -82,7 +84,7 @@ This section includes temporary single-use macros. Uncomment and modify as neede
 
 ## Customization
 
-You can customize the keybindings and functionality by modifying the script file 
+You can customize the keybindings and functionality by modifying the script file
 CapsLockRemap.ahk. Refer to the AutoHotkey documentation for syntax and available commands.
 
 ## Credit
