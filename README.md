@@ -29,13 +29,7 @@ new shortcuts to the caps lock key.
 
 This script gives the following keybindings to the caps lock key:
 
-### Buttons
-
-- Shift + Capslock => Capslock
-- Caps + I => Insert
-
 ### Macros
-
 - Caps + C => Copy line
 - Caps + X => Cut line
 
@@ -50,9 +44,7 @@ This script gives the following keybindings to the caps lock key:
 ### Navigation
 
 - Caps + Arrow Key => Document Navigation
-
-- Caps + j => left arrow
-- Caps + l => Right arrow
+- Caps + IJKL => Arrow keys
 
 ### Media
 
@@ -64,7 +56,7 @@ This script gives the following keybindings to the caps lock key:
 
 ### Settings
 
-- Caps + K => Bluetooth Settings
+- Caps + B => Bluetooth Settings
 - Caps + P => Display Settings
 - Caps + T => Touchpad Settings
 

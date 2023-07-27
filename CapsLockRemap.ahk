@@ -13,8 +13,7 @@ scripts_folder_path := A_ScriptDir . "\Scripts"
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
 
-; Caps + i => Insert
-F13 & i::Send {Insert}
+
 
 ; Macros
 ; Caps + c => Copy line
@@ -45,16 +44,16 @@ F13 & f::
 return
 
 ; Navigation
-; Caps + arrow key => doc navigation
+; Caps + arrow key => Doc navigation
 F13 & up::send {PgUp}
 F13 & down::send {PgDn}
 F13 & left::send {Home}
 F13 & right::send {End}
 
-; Caps + j => Left arrow
+; Caps + ijkl => Arrow keys
+F13 & i::Send {Up}
 F13 & j::Send {Left}
-
-; Caps + l => Right arrow
+F13 & k::Send {Down}
 F13 & l::Send {Right}
 
 ; Media
@@ -133,8 +132,8 @@ F13 & 9::OpenFolderFromIndex(shortcut_folder_path, 9)
 F13 & 0::OpenFolderFromIndex(shortcut_folder_path, 0)
 
 ; Settings
-; Caps + k => Open Bluetooth Settings
-F13 & k::Run "%scripts_folder_path%\Settings\OpenBluetoothSettings.vbs"
+; Caps + b => Open Bluetooth Settings
+F13 & b::Run "%scripts_folder_path%\Settings\OpenBluetoothSettings.vbs"
 
 ; Caps + p => Open Display settings
 F13 & p::Run "%scripts_folder_path%\Settings\OpenDisplaySettings.vbs"
