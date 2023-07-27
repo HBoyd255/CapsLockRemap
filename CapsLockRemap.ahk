@@ -13,8 +13,6 @@ scripts_folder_path := A_ScriptDir . "\Scripts"
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
 
-
-
 ; Macros
 ; Caps + c => Copy line
 F13 & c::Run "%scripts_folder_path%\Macros\copyLine.exe"
@@ -46,16 +44,27 @@ return
 ; Navigation
 ; Caps + arrow key => Doc navigation
 F13 & up::send {PgUp}
-F13 & down::send {PgDn}
 F13 & left::send {Home}
+F13 & down::send {PgDn}
 F13 & right::send {End}
 
 ; Caps + ijkl => Arrow keys
-F13 & i::Send {Up}
-F13 & j::Send {Left}
-F13 & k::Send {Down}
-F13 & l::Send {Right}
-
+F13 & i::
+    modifiers := GetMod()
+    Send, %modifiers%{Up}
+return
+F13 & j::
+    modifiers := GetMod()
+    Send, %modifiers%{Left}
+return
+F13 & k::
+    modifiers := GetMod()
+    Send, %modifiers%{Down}
+return
+F13 & l::
+    modifiers := GetMod()
+    Send, %modifiers%{Right}
+return
 ; Media
 ; Caps + wasd => Media controll
 F13 & w::
@@ -98,6 +107,18 @@ OpenFolderFromIndex(Folder, index){
         }
     }
     MsgBox, Sorry, Shortcut not found
+}
+
+; Returns which modifier keys are currently pressed.
+GetMod(){
+    modifiers := ""
+    if GetKeyState("Ctrl","p")
+        modifiers .= "^"
+    if GetKeyState("Alt","p")
+        modifiers .= "!"
+    if GetKeyState("Shift","p")
+        modifiers .= "+"
+    Return modifiers
 }
 
 ; Shortcuts
