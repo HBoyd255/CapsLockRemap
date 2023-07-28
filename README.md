@@ -29,7 +29,13 @@ new shortcuts to the caps lock key.
 
 This script gives the following keybindings to the caps lock key:
 
+### Buttons
+
+- Caps => Right click
+- Caps + Shift => Caps lock
+
 ### Macros
+
 - Caps + C => Copy line
 - Caps + X => Cut line
 
