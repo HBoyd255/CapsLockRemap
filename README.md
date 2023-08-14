@@ -35,6 +35,7 @@ This script gives the following keybindings to the caps lock key:
 - Caps + Shift => Caps lock
 - Caps + Space => Enter
 - Caps + ; => Backspace
+- Caps + Q => Escape
 
 ### Macros
 
