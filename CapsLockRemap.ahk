@@ -16,8 +16,11 @@ F13::Send +{F10}
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
 
-; Caps + spack => Backspace
-F13 & Space::Send {Backspace}
+; Caps + spack => Enter
+F13 & Space::Send {Enter}
+
+; Caps + ; => Backspace
+F13 & SC027::Send {Backspace}
 
 
 ; Macros

@@ -33,8 +33,8 @@ This script gives the following keybindings to the caps lock key:
 
 - Caps => Right click
 - Caps + Shift => Caps lock
-- Caps + Space => Backspace
-
+- Caps + Space => Enter
+- Caps + ; => Backspace
 
 ### Macros
 
