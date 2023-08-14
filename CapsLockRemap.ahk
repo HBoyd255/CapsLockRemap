@@ -22,6 +22,8 @@ F13 & Space::Send {Enter}
 ; Caps + ; => Backspace
 F13 & SC027::Send {Backspace}
 
+; Caps + q => Escape
+F13 & Q::Send {Escape}
 
 ; Macros
 ; Caps + c => Copy line
