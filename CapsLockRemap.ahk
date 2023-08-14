@@ -16,6 +16,10 @@ F13::Send +{F10}
 ; Shift + Capslock => Capslock
 +F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
 
+; Caps + spack => Backspace
+F13 & Space::Send {Backspace}
+
+
 ; Macros
 ; Caps + c => Copy line
 F13 & c::Run "%scripts_folder_path%\Macros\copyLine.exe"
