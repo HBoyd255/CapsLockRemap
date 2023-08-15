@@ -88,6 +88,12 @@ This section includes temporary single-use macros. Uncomment and modify as neede
 You can customize the keybindings and functionality by modifying the script file
 CapsLockRemap.ahk. Refer to the AutoHotkey documentation for syntax and available commands.
 
+## Future Plans
+
+- Explore the creation of a dedicated keyboard that directly outputs the F13 signal in place of Capslock. This would allow users to harness the capabilities of this project without the need to modify their system registry.
+
+
+
 ## Credit
 
 Credit for map_capslock_to_f13.reg goes to http://www.grismar.net/ventrilocapsfix/
