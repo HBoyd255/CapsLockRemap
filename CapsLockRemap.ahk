@@ -5,8 +5,8 @@ Process, Priority,, H
 
 ; Capslock is bound to F13 by changing the registry
 
-shortcut_folder_path := A_ScriptDir . "\Shortcuts"
-scripts_folder_path := A_ScriptDir . "\Scripts"
+scripts_folder := A_ScriptDir . "\Scripts"
+shortcut_folder := A_ScriptDir . "\Shortcuts"
 
 ; Buttons
 
@@ -14,7 +14,7 @@ scripts_folder_path := A_ScriptDir . "\Scripts"
 F13::Send +{F10}
 
 ; Shift + Capslock => Capslock
-+F13::Run "%scripts_folder_path%\ToggleCapslock\ToggleCapslock.vbs"
++F13::Run "%scripts_folder%\ToggleCapslock\ToggleCapslock.vbs"
 
 ; Caps + spack => Enter
 F13 & Space::Send {Enter}
@@ -27,10 +27,10 @@ F13 & Q::Send {Escape}
 
 ; Macros
 ; Caps + c => Copy line
-F13 & c::Run "%scripts_folder_path%\Macros\copyLine.exe"
+F13 & c::Run "%scripts_folder%\Macros\copyLine.exe"
 
 ; Caps + x => Cut line
-F13 & x::Run "%scripts_folder_path%\Macros\cutLine.exe"
+F13 & x::Run "%scripts_folder%\Macros\cutLine.exe"
 
 ; Applications
 ; Caps + v => Volume mixer
@@ -44,12 +44,12 @@ F13 & f::
     send ^l
     send ^c
     If GetKeyState("Ctrl","p")
-        Run, python.exe "%scripts_folder_path%\BrowserFromClipboard\chrome_from_clipboard.py"
+        Run, python.exe "%scripts_folder%\BrowserFromClipboard\chrome_from_clipboard.py"
     Else
         If GetKeyState("alt","p")
-            Run, python.exe "%scripts_folder_path%\BrowserFromClipboard\firefox_from_clipboard_reattach.py"
+            Run, python.exe "%scripts_folder%\BrowserFromClipboard\firefox_from_clipboard_reattach.py"
         Else
-            Run, python.exe "%scripts_folder_path%\BrowserFromClipboard\firefox_from_clipboard.py"
+            Run, python.exe "%scripts_folder%\BrowserFromClipboard\firefox_from_clipboard.py"
 
 return
 
@@ -92,29 +92,89 @@ return
 F13 & a::send {Media_Prev}
 F13 & d::send {Media_Next}
 
+callURLWithBrowser(browser_shortcut_file,url_file){
+    ; This function take a url file and try to extract the url from it,
+    ; and then open the url with the given browser shortcut.
+
+    ; If a url can not be extracted from the url file, then a 1 is returned.
+
+    ; Read the url file line by line.
+    Loop, read, %url_file%
+    {
+        Loop, parse, A_LoopReadLine, %A_Tab%
+        {
+            ; If the line starts with "URL"
+            if (SubStr(A_LoopField, 1, 3) = "URL"){
+                ; Extract the url from the line
+                url := SubStr(A_LoopField, 5)
+
+                ; Open the url with the given browser shortcut
+                Run, "%browser_shortcut_file%" "%url%"
+                Return 0
+            }
+
+        }
+    }
+    ; If this function reaches the end, it means that the url_file does not
+    ; contain the URL, and sumthing has gone wrong, and thus a 1 is returned
+    Return 1
+}
+
+; TODO move these functions into their own file
+callURL(browser_shortcut_folder,url_file){
+
+    ; If the browser_shortcut_folder does not exist,
+    ; then the url_file will be executed directly
+    if (FileExist(browser_shortcut_folder)) {
+
+        ; If a shortcut is found(which should be a shortcut to a web browser)
+        ; inside browser_shortcut_folder
+        ; then the url_file will be executed with the shortcut.
+        Loop, Files, %browser_shortcut_folder%\*.lnk
+        {
+            ; Get the full file path of the web browser shortcut.
+            browser_shortcut_file := browser_shortcut_folder . "\" . A_LoopFileName
+
+            ; if callURLWithBrowser was successful, then return 0.
+            if ( callURLWithBrowser(browser_shortcut_file,url_file) == 0){
+                Return 0
+            }
+        }
+    }
+
+    ; If the web browser shortcut cannot be found, then the url_file will be
+    ; executed directly.
+    Run, "%url_file%"
+}
+
 ; Functions
 ; Open a shortcut or url in a given folder based on the first character of its name
-OpenFolderFromIndex(Folder, index){
+callShortcutFromIndex(shortcut_folder, index){
     ; For each shortcut in a given folder
-    Loop, Files, %Folder%\*.lnk
+    Loop, Files, %shortcut_folder%\*.lnk
     {
-        ; If the shortcut matches the given index
+        ; If the first character shortcut matches the given index
         if (SubStr(A_LoopFileName, 1, 1) = index)
         {
-            ; Run the shortcut
-            Run "%Folder%\%A_LoopFileName%"
+            shortcut_file := shortcut_folder . "\" . A_LoopFileName
+
+            Run "%shortcut_file%"
             return 0
         }
     }
 
     ; For each internet shortcut in a given folder
-    Loop, Files, %Folder%\*.url
+    Loop, Files, %shortcut_folder%\*.url
     {
-        ; If the internet shortcut matches the given index
+        ; If the first character internet shortcut matches the given index
         if (SubStr(A_LoopFileName, 1, 1) = index)
         {
+            browser_shortcut_folder := shortcut_folder . "\" . "BrowserShortcut"
+
+            url_file := shortcut_folder . "\" . A_LoopFileName
+
             ; Run the internet shortcut
-            Run "%Folder%\%A_LoopFileName%"
+            callURL(browser_shortcut_folder, url_file)
             return 0
         }
     }
@@ -135,44 +195,44 @@ GetMod(){
 
 ; Shortcuts
 ; Caps + 1 => shortcut 1
-F13 & 1::OpenFolderFromIndex(shortcut_folder_path, 1)
+F13 & 1::callShortcutFromIndex(shortcut_folder, 1)
 
 ; Caps + 2 => shortcut 2
-F13 & 2::OpenFolderFromIndex(shortcut_folder_path, 2)
+F13 & 2::callShortcutFromIndex(shortcut_folder, 2)
 
 ; Caps + 3 => shortcut 3
-F13 & 3::OpenFolderFromIndex(shortcut_folder_path, 3)
+F13 & 3::callShortcutFromIndex(shortcut_folder, 3)
 
 ; Caps + 4 => shortcut 4
-F13 & 4::OpenFolderFromIndex(shortcut_folder_path, 4)
+F13 & 4::callShortcutFromIndex(shortcut_folder, 4)
 
 ; Caps + 5 => shortcut 5
-F13 & 5::OpenFolderFromIndex(shortcut_folder_path, 5)
+F13 & 5::callShortcutFromIndex(shortcut_folder, 5)
 
 ; Caps + 6 => shortcut 6
-F13 & 6::OpenFolderFromIndex(shortcut_folder_path, 6)
+F13 & 6::callShortcutFromIndex(shortcut_folder, 6)
 
 ; Caps + 7 => shortcut 7
-F13 & 7::OpenFolderFromIndex(shortcut_folder_path, 7)
+F13 & 7::callShortcutFromIndex(shortcut_folder, 7)
 
 ; Caps + 8 => shortcut 8
-F13 & 8::OpenFolderFromIndex(shortcut_folder_path, 8)
+F13 & 8::callShortcutFromIndex(shortcut_folder, 8)
 
 ; Caps + 9 => shortcut 9
-F13 & 9::OpenFolderFromIndex(shortcut_folder_path, 9)
+F13 & 9::callShortcutFromIndex(shortcut_folder, 9)
 
 ; Caps + 0 => shortcut 0
-F13 & 0::OpenFolderFromIndex(shortcut_folder_path, 0)
+F13 & 0::callShortcutFromIndex(shortcut_folder, 0)
 
 ; Settings
 ; Caps + b => Open Bluetooth Settings
-F13 & b::Run "%scripts_folder_path%\Settings\OpenBluetoothSettings.vbs"
+F13 & b::Run "%scripts_folder%\Settings\OpenBluetoothSettings.vbs"
 
 ; Caps + p => Open Display settings
-F13 & p::Run "%scripts_folder_path%\Settings\OpenDisplaySettings.vbs"
+F13 & p::Run "%scripts_folder%\Settings\OpenDisplaySettings.vbs"
 
 ; Caps + w => Open Touchpad settings
-F13 & t::Run "%scripts_folder_path%\Settings\OpenTouchpadSettings.vbs"
+F13 & t::Run "%scripts_folder%\Settings\OpenTouchpadSettings.vbs"
 
 ; Prints
 ; Caps + g => print "@gmail.com"
