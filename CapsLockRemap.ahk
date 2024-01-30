@@ -214,7 +214,7 @@ openTerminal(terminal){
         ; and enter to open the terminal.
         ; powershell.exe is the default terminal in vscode.
         if(terminal != "powershell.exe"){
-            sleep, 100
+            sleep, 500
             Send, %terminal%
             Send, {enter}
         }
