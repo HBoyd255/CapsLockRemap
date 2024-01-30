@@ -54,6 +54,9 @@ This script gives the following keybindings to the caps lock key:
   - By default, opens the tab in a new window.
   - If Alt is pressed, opens it as a new tab.
   - If Ctrl is pressed, opens it in Chrome.
+- Caps + T => Opens Powershell.exe
+  - If Ctrl is pressed, opens Wsl.exe
+  - integrates with explorer.exe and vscode
 
 ### Navigation
 
@@ -70,15 +73,14 @@ This script gives the following keybindings to the caps lock key:
   character of their names. For example, if you have a shortcut named
   "5_GitHub.url", pressing Caps + 5 will open it.
 - Additionally, if you place a shortcut to a web browser in
-  `Shortcuts\BrowserShortcut`, any URL will be opened in that browser. 
-  The reason for this feature is so I can call my shortcuts using my 
+  `Shortcuts\BrowserShortcut`, any URL will be opened in that browser.
+  The reason for this feature is so I can call my shortcuts using my
   Firefox redirector, as seen on [my Github](https://github.com/H-Boyd/FirefoxRedirector).
 
 ### Settings
 
 - Caps + B => Bluetooth Settings
 - Caps + P => Display Settings
-- Caps + T => Touchpad Settings
 
 ### Prints
 

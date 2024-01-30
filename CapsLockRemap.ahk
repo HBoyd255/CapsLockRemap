@@ -27,10 +27,10 @@ F13 & Q::Send {Escape}
 
 ; Macros
 ; Caps + c => Copy line
-F13 & c::Run "%scripts_folder%\Macros\copyLine.exe"
+F13 & c::Run "%scripts_folder%\Macros\copyLine.ahk"
 
 ; Caps + x => Cut line
-F13 & x::Run "%scripts_folder%\Macros\cutLine.exe"
+F13 & x::Run "%scripts_folder%\Macros\cutLine.ahk"
 
 ; Applications
 ; Caps + v => Volume mixer
@@ -46,7 +46,7 @@ F13 & f::
     If GetKeyState("Ctrl","p")
         Run, python.exe "%scripts_folder%\BrowserFromClipboard\chrome_from_clipboard.py"
     Else
-        If GetKeyState("alt","p")
+        If GetKeyState("Alt","p")
             Run, python.exe "%scripts_folder%\BrowserFromClipboard\firefox_from_clipboard_reattach.py"
         Else
             Run, python.exe "%scripts_folder%\BrowserFromClipboard\firefox_from_clipboard.py"
@@ -181,6 +181,62 @@ callShortcutFromIndex(shortcut_folder, index){
     MsgBox, Sorry, Shortcut not found
 }
 
+openTerminal(terminal){
+
+    ; Part of this function where provided by ChatGPT
+
+    ; Get the HWND (handle) of the active window
+    WinGet, activeHwnd, ID, A
+    ; Get the class name of the active window
+    WinGetClass, activeWindowClass, ahk_id %activeHwnd%
+
+    ; If the current window is the desktop, then set the window name to
+    ; desktop.exe, this is to differentiate between the desktop and the file
+    ; explorer.
+    if (activeWindowClass = "Progman" or activeWindowClass = "WorkerW") {
+        windowName := "desktop.exe"
+    }
+    ; If the current window is not the desktop, then get the process name of
+    ; the active window using its HWND.
+    else {
+        ; Get the process name of the active window using its HWND
+        WinGet, windowName, ProcessName, ahk_id %activeHwnd%
+        StringLower, windowName, windowName
+    }
+
+    ; If the current window is vscode, then open the terminal using the
+    ; vscode key combination Ctrl+Shift+'
+
+    if (windowName = "code.exe") {
+        SendInput ^+'
+
+        ; If the terminal is not powershell.exe, then send the terminal name
+        ; and enter to open the terminal.
+        ; powershell.exe is the default terminal in vscode.
+        if(terminal != "powershell.exe"){
+            sleep, 100
+            Send, %terminal%
+            Send, {enter}
+        }
+
+    }
+    ; If the current window is the file explorer, then open the terminal using
+    ; the file explorer key combination Ctrl+L to focus the address bar, and
+    ; then send the terminal name and enter to open the terminal.
+    else if(windowName = "explorer.exe"){
+        SendInput ^l
+        sleep, 100
+        Send, %terminal%
+        Send, {enter}
+    }
+    ; If the current window is not vscode or file explorer, then open the
+    ; terminal using the run command.
+    else {
+        Run, %terminal%
+    }
+
+}
+
 ; Returns which modifier keys are currently pressed.
 GetMod(){
     modifiers := ""
@@ -231,18 +287,24 @@ F13 & b::Run "%scripts_folder%\Settings\OpenBluetoothSettings.vbs"
 ; Caps + p => Open Display settings
 F13 & p::Run "%scripts_folder%\Settings\OpenDisplaySettings.vbs"
 
-; Caps + w => Open Touchpad settings
-F13 & t::Run "%scripts_folder%\Settings\OpenTouchpadSettings.vbs"
-
+; TODO Come back and finish this.
+; Caps + t => Open powershell.exe
+; If Ctrl is pressed open wsl.exe
+F13 & t::
+    If GetKeyState("Ctrl","p")
+        openTerminal("wsl.exe")
+    Else
+        openTerminal("powershell.exe")
+return
 ; Prints
 ; Caps + g => print "@gmail.com"
 F13 & g:: Send, @gmail.com
 
 ; Caps + h => prints the current date, DMY
 ; If Ctrl is pressed send YMD
-; If alt is pressed swap / for _
+; If Alt is pressed swap / for _
 F13 & h::
-    If GetKeyState("alt","p")
+    If GetKeyState("Alt","p")
 
         If GetKeyState("Ctrl","p")
             FormatTime, CurrentDateTime,, yyyy_MM_dd
