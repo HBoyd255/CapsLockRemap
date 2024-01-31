@@ -7,6 +7,7 @@ Process, Priority,, H
 
 scripts_folder := A_ScriptDir . "\Scripts"
 shortcut_folder := A_ScriptDir . "\Shortcuts"
+home_folder := "C:\Users\Harry\"
 
 ; Buttons
 
@@ -232,9 +233,20 @@ openTerminal(terminal){
     ; If the current window is not vscode or file explorer, then open the
     ; terminal in the default terminal emulator wt.exe.
     else {
-        ; the call to wt.exe is wrapped in powershell.exe to make sure that
-        ; the terminal is opened in the default directory.
-        Run, wt.exe powershell.exe %terminal%
+        if (terminal = "wsl.exe"){
+            ; If the terminal is wsl.exe, then open the terminal in the home
+            ; directory. TODO replace this with a config file.
+            Run, wt.exe wsl.exe --cd C:\Users\Harry\
+        }
+        ; If the terminal is powershell.exe, then open the terminal in the
+        ; home directory with the --NoLogo flag to remove the copyright banner.
+        else if (terminal = "powershell.exe"){
+            Run, wt.exe powershell.exe -NoLogo
+        }
+        else{
+            Run, wt.exe %terminal%
+        }
+
     }
 
 }
@@ -335,3 +347,4 @@ return
 ;     Sleep, 100
 ;     Send, {Down}
 ; return
+
