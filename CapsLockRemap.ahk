@@ -230,9 +230,11 @@ openTerminal(terminal){
         Send, {enter}
     }
     ; If the current window is not vscode or file explorer, then open the
-    ; terminal using the run command.
+    ; terminal in the default terminal emulator wt.exe.
     else {
-        Run, %terminal%
+        ; the call to wt.exe is wrapped in powershell.exe to make sure that
+        ; the terminal is opened in the default directory.
+        Run, wt.exe powershell.exe %terminal%
     }
 
 }
