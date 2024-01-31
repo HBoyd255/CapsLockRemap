@@ -28,10 +28,10 @@ F13 & Q::Send {Escape}
 
 ; Macros
 ; Caps + c => Copy line
-F13 & c::Run "%scripts_folder%\Macros\copyLine.ahk"
+F13 & c::Run "%scripts_folder%\AhkMacros\copyLine.ahk"
 
 ; Caps + x => Cut line
-F13 & x::Run "%scripts_folder%\Macros\cutLine.ahk"
+F13 & x::Run "%scripts_folder%\AhkMacros\cutLine.ahk"
 
 ; Applications
 ; Caps + v => Volume mixer
