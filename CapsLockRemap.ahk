@@ -3,11 +3,14 @@
 #SingleInstance, Force
 Process, Priority,, H
 
-; Capslock is bound to F13 by changing the registry
+; Harry Boyd - hboyd255@gmail.com - 06/03/2024
 
+; Capslock is bound to F13 by changing the registry
 scripts_folder := A_ScriptDir . "\Scripts"
 shortcut_folder := A_ScriptDir . "\Shortcuts"
 home_folder := "C:\Users\Harry\"
+email_address := "hboyd255@gmail.com"
+chosen_name := "Harry Boyd"
 
 ; Buttons
 
@@ -52,7 +55,7 @@ F13 & f::
         Else
             Run, python.exe "%scripts_folder%\BrowserFromClipboard\firefox_from_clipboard.py"
 
-return
+Return
 
 ; Navigation
 ; Caps + arrow key => Doc navigation
@@ -65,19 +68,19 @@ F13 & right::send {End}
 F13 & i::
     modifiers := GetMod()
     Send, %modifiers%{Up}
-return
+Return
 F13 & j::
     modifiers := GetMod()
     Send, %modifiers%{Left}
-return
+Return
 F13 & k::
     modifiers := GetMod()
     Send, %modifiers%{Down}
-return
+Return
 F13 & l::
     modifiers := GetMod()
     Send, %modifiers%{Right}
-return
+Return
 ; Media
 ; Caps + wasd => Media controll
 F13 & w::
@@ -85,11 +88,11 @@ F13 & w::
         send {Volume_Up}
     Else
         send {Media_Play_Pause}
-return
+Return
 F13 & s::
     If GetKeyState("Ctrl","p")
         send {Volume_Down}
-return
+Return
 F13 & a::send {Media_Prev}
 F13 & d::send {Media_Next}
 
@@ -160,7 +163,7 @@ callShortcutFromIndex(shortcut_folder, index){
             shortcut_file := shortcut_folder . "\" . A_LoopFileName
 
             Run "%shortcut_file%"
-            return 0
+            Return 0
         }
     }
 
@@ -176,7 +179,7 @@ callShortcutFromIndex(shortcut_folder, index){
 
             ; Run the internet shortcut
             callURL(browser_shortcut_folder, url_file)
-            return 0
+            Return 0
         }
     }
     MsgBox, Sorry, Shortcut not found
@@ -309,30 +312,35 @@ F13 & t::
         openTerminal("wsl.exe")
     Else
         openTerminal("powershell.exe")
-return
+Return
+
 ; Prints
-; Caps + g => print "@gmail.com"
-F13 & g:: Send, @gmail.com
-
-; Caps + h => prints the current date, DMY
-; If Ctrl is pressed send YMD
-; If Alt is pressed swap / for _
-F13 & h::
-    If GetKeyState("Alt","p")
-
-        If GetKeyState("Ctrl","p")
-            FormatTime, CurrentDateTime,, yyyy_MM_dd
-        Else
-            FormatTime, CurrentDateTime,, dd_MM_yyyy
-
+; Caps + g => Print "@gmail.com", if Ctrl is pressed, prints full email.
+F13 & g::
+    If GetKeyState("Ctrl","p")
+        Send %email_address%
     Else
-        If GetKeyState("Ctrl","p")
-            FormatTime, CurrentDateTime,, yyyy/MM/dd
-        Else
-            FormatTime, CurrentDateTime,, dd/MM/yyyy
+        Send, @gmail.com
+Return
+
+; Caps + h => Prints a dated signature, consisting of the chosen name and the
+; current date.
+
+F13 & h::
+
+    FormatTime, CurrentDateTime,, dd/MM/yyyy
+
+    SendInput %chosen_name%
+
+    SendInput {Space}-{Space}
+
+    SendInput %email_address%
+
+    SendInput {Space}-{Space}
 
     SendInput %CurrentDateTime%
-return
+
+Return
 
 ; Temp
 ; This part is just to add single use macros to
@@ -346,5 +354,5 @@ return
 ;     Send, {Enter}
 ;     Sleep, 100
 ;     Send, {Down}
-; return
+; Return
 
