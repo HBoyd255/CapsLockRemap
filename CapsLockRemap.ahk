@@ -36,6 +36,9 @@ F13 & c::Run "%scripts_folder%\AhkMacros\copyLine.ahk"
 ; Caps + x => Cut line
 F13 & x::Run "%scripts_folder%\AhkMacros\cutLine.ahk"
 
+; Caps + n => Take a screenshot and email it
+F13 & n::Run "%scripts_folder%\Capture.vbs.lnk"
+
 ; Applications
 ; Caps + v => Volume mixer
 F13 & v::Run "Sndvol.exe"

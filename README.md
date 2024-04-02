@@ -46,6 +46,9 @@ This script gives the following keybindings to the caps lock key:
 
 - Caps + C => Copy line
 - Caps + X => Cut line
+- Caps + N => Take a screenshot, Email it to myself. This functionality is
+  provided by my
+  [screenshot-to-email](https://github.com/HBoyd255/screenshot-to-email) script.
 
 ### Applications
 
