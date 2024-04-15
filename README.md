@@ -1,4 +1,4 @@
-# Caps lock Remap
+# Caps Lock Remap
 
 This AutoHotkey scripts adds additional functionality to the caps lock key by
 having it rebound to F13 and then creating an array of F13 shortcuts.
