@@ -88,9 +88,10 @@ This script gives the following keybindings to the caps lock key:
 
 ### Prints
 
-- Caps + G => Print "@gmail.com", if ctrl is pressed, prints my full email
-  address.
-- Caps + H => Prints a signature, containing my name, email, the current date.
+- Caps + G => Print "@gmail.com".
+- Caps + H => Prints a signature, containing my name, the current date, and a
+  link to my github.
+- Caps + H + Ctrl => Prints the phrase "Waiting since %CurrentDateTime%."
 
 ### Temp
 

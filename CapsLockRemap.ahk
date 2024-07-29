@@ -3,13 +3,11 @@
 #SingleInstance, Force
 Process, Priority,, H
 
-; Harry Boyd - hboyd255@gmail.com - 06/03/2024
-
 ; Capslock is bound to F13 by changing the registry
 scripts_folder := A_ScriptDir . "\Scripts"
 shortcut_folder := A_ScriptDir . "\Shortcuts"
 home_folder := "C:\Users\Harry\"
-email_address := "hboyd255@gmail.com"
+github_url := "github.com/hboyd255"
 chosen_name := "Harry Boyd"
 
 ; Buttons
@@ -333,15 +331,20 @@ F13 & h::
 
     FormatTime, CurrentDateTime,, dd/MM/yyyy
 
-    SendInput %chosen_name%
+    If GetKeyState("Ctrl","p")
+        Send Waiting since %CurrentDateTime%.
+    Else{
 
-    SendInput {Space}-{Space}
+        SendInput %chosen_name%
 
-    SendInput %email_address%
+        SendInput {Space}-{Space}
 
-    SendInput {Space}-{Space}
+        SendInput %CurrentDateTime%
 
-    SendInput %CurrentDateTime%
+        SendInput {Space}-{Space}
+
+        SendInput %github_url%
+    }
 
 Return
 
